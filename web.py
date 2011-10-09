@@ -35,6 +35,7 @@ class BingMaps(object):
         
         simple_routes = self._bing_routes_to_simple_routes(route_dict)
         self._append_transit_alerts(simple_routes)
+        self._append_bus_detours(simple_routes)
         return simple_routes
 
     def _append_transit_alerts(self, simple_routes):
@@ -48,6 +49,18 @@ class BingMaps(object):
                     alerts = simplejson.loads(response['body'])
                     if len(alerts) > 0:
                         step['transit_details']['alerts'] = alerts
+
+    def _append_bus_detours(self, simple_routes):
+        SERVICE_URL = 'http://www3.septa.org/hackathon/BusDetours'
+        for route in simple_routes:
+            #pprint(route)
+            for step in route['steps']:
+                if step['type'] == 'Bus':
+                    line = step['transit_details']['line']
+                    response = Connection(SERVICE_URL).request_get(line)
+                    detours = simplejson.loads(response['body'])
+                    if len(detours) > 0:
+                        step['transit_details']['detours'] = detours
 
     def _convert_json_date_string(self, json_date_string):
         pattern = re.compile('Date\((\d+)-(\d+)\)')
