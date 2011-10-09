@@ -15,7 +15,7 @@
                 <ul>
                     <li id="home">TRAVEL BOARD</li>
                     <li id="settings" class="accessAid"><a href="#">Settings</a></li>
-                    <li id="about" class="accessAid"><a href="#">About</a></li>
+                    <li id="about"><a href="/static/afs.html">About</a></li>
                 </ul>
             </nav>
         </header>
@@ -139,7 +139,7 @@
 #                <dt id="header">
 #                    <h3 class="listItem placeName">{ location }</h3>
 #                    <div class="listItem statusTags">{ status }</div>
-#                    <div class="listItem intervalA">??ArrivalTime$$</div>
+#                    <div class="listItem intervalA">{ depart }</div>
 #                    <div class="listItem timePoint">??DestinationTime$$</div>
 #                    <div class="listItem control"><a onclick=""></a></div>
 #                    <div class="stepType">??#Steps$$<b class="step ??IconType$$"></b>??/Steps$$</div>
@@ -149,7 +149,7 @@
 #                    ****INNER STEPS LOOP STARTS HERE  **********
 #                    <tr>
 #                        <td>
-#                            <p><b class="step { type }"></b> { instruction.text }</p><p><span class="parenthetical">About { duration / 60} mins { distance_in_miles } miles</span></p>
+#                            <p><b class="step { type }"></b> { instruction.text }</p><p><span class="parenthetical">{ % if (type != 'Walk') % )  About {duration / 60} mins { % else % } About {duration / 60} mins { % endif % }) { distance_in_miles } miles</span></p>
 #                        </td>
 #                    </tr>
 #                    ******INNER STEPS LOOP ENDS HERE ******
