@@ -115,10 +115,10 @@ def root():
 
 @app.route('/from/<from_address>/to/<to_address>')
 def get_routes(from_address, to_address):
-    print from_address
-    print to_address
+    processed_from_address = from_address.replace('_', ' ')
+    processed_to_address = to_address.replace('_', ' ')
     bing_maps = BingMaps(os.environ.get("BING_MAPS_API_KEY"))
-    result = bing_maps.get_transit_route(from_address, to_address)
+    result = bing_maps.get_transit_route(processed_from_address, processed_to_address)
     resp = make_response(simplejson.dumps(result, indent=4))
     resp.headers['Content-Type'] = 'application/json'
     return resp
