@@ -35,7 +35,7 @@
                                 <div>Destination</div>
                                 <div>Status</div>
                                 <div>Must Leave By</div>
-                                <div>Should Arrive By</div>
+                                <div>Should Arrive By</divW
                                 <div>Control</div>
                                 <div>Steps</div>
                             </dt>
@@ -45,28 +45,28 @@
                                     <div class="listItem intervalA">5 mins</div>
                                     <div class="listItem timePoint">3:35pm</div>
                                     <div class="listItem control"><a onclick=""></a></div>
-                                    <div class="stepType"><b class="step walk"></b><b class="step train"></b><b class="step bus"></b><b class="step walk"></b></div>
+                                    <div class="stepType"><b class="step Walk"></b><b class="step Train"></b><b class="step Bus"></b><b class="step walk"></b></div>
                             </dt>
                             <dd>
                                 <table class="steps">
                                 <tr>
                                     <td>
-                                        <p><b class="step walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                                        <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                                        <p><b class="step Train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                                        <p><b class="step Bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                                        <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
                                     </td>
                                 </tr>
                                 </table>
@@ -89,28 +89,28 @@
                                     <div class="listItem intervalA">45 mins</div>
                                     <div class="listItem timePoint">10:17pm</div>
                                     <div class="listItem control"><a onclick=""></a></div>
-                                    <div class="stepType"><b class="step walk"></b><b class="step train"></b><b class="step bus"></b><b class="step walk"></b></div>
+                                    <div class="stepType"><b class="step Walk"></b><b class="step Train"></b><b class="step Bus"></b><b class="step Walk"></b></div>
                             </dt>
                             <dd class="steps">
                                 <table>
                                 <tr>
                                     <td>
-                                        <p><b class="step walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                                        <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                                        <p><b class="step Train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins</span></p>
+                                        <p><b class="step Bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins</span></p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p><b class="step walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                                        <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
                                     </td>
                                 </tr>
                                 </table>
@@ -129,35 +129,37 @@
     </footer>
 </html>
 
-<script id="templateTest" type="x-tmpl-mustache">
-
-    ??#Sections$$
-        <ul>
-        <li class="location">
-            <dl class="origin">
-                <dt id="header">
-                    <h3 class="listItem placeName">??PlaceName$$</h3>
-                    <div class="listItem statusTags">??StatusTag$$</div>
-                    <div class="listItem intervalA">??ArrivalTime$$</div>
-                    <div class="listItem timePoint">??DestinationTime$$</div>
-                    <div class="listItem control"><a onclick=""></a></div>
-                    <div class="stepType">??#Steps$$<b class="step ??IconType$$"></b>??/Steps$$</div>
-                </dt>
-                <dd class="steps">
-                    <table>
-                    ??#Routes$$
-                    <tr>
-                        <td>
-                            <p><b class="step ??IconType$$"></b> ??Message$$</p><p><span class="parenthetical">About ??Time$$ ??Distance$$</span></p>
-                        </td>
-                    </tr>
-                    ??/Routes$$
-                    </table>
-                </dd>
-            </dl>
-        </li>
-		</ul>
-    ??/Sections$$
+<!--
+# place for messing with the Jinja Template>
+#
+#    ****LOOP STARTS HERE  **********
+#        <ul>
+#        <li class="location">
+#            <dl class="origin">
+#                <dt id="header">
+#                    <h3 class="listItem placeName">{ location }</h3>
+#                    <div class="listItem statusTags">{ status }</div>
+#                    <div class="listItem intervalA">??ArrivalTime$$</div>
+#                    <div class="listItem timePoint">??DestinationTime$$</div>
+#                    <div class="listItem control"><a onclick=""></a></div>
+#                    <div class="stepType">??#Steps$$<b class="step ??IconType$$"></b>??/Steps$$</div>
+#                </dt>
+#                <dd class="steps">
+#                    <table>
+#                    ****INNER STEPS LOOP STARTS HERE  **********
+#                    <tr>
+#                        <td>
+#                            <p><b class="step { type }"></b> { instruction.text }</p><p><span class="parenthetical">About { duration / 60} mins { distance_in_miles } miles</span></p>
+#                        </td>
+#                    </tr>
+#                    ******INNER STEPS LOOP ENDS HERE ******
+#                    </table>
+#                </dd>
+#            </dl>
+#        </li>
+#		</ul>
+#    ****** LOOP ENDS HERE ******
+    -->
 
 </script>
     

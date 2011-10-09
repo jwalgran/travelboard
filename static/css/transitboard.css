@@ -17,10 +17,24 @@ body {
     );
     font: bold 100%/1 sans-serif, Cambria, Georgia, serif;
 	-webkit-text-size-adjust: auto;
-    color:#533;
+    color:#000;
     margin:0;
     padding: 0;
     background-color:white;
+}
+body.demo {
+	-webkit-text-size-adjust: auto;
+    padding: 5px;
+}
+.demo p {
+	-webkit-text-size-adjust: auto;
+    color:#533;
+    margin:10px;
+    padding: 5px;
+    color: #533;
+}
+.demo li {
+    margin-bottom: 10px;
 }
 dl, dd {
     margin:0;
@@ -29,12 +43,19 @@ h3 {
     margin: 8px 0 8px 0;
     display: block;
 }
-header {
+header, h1 {
     background-color: #060;
     height: 28px;
     font: normal 100%/1 Cambria, Georgia, serif;
     color:#ddd;
     display: block;
+}
+h1 {
+    font-size: 50px;
+    height: 27px;
+    line-height: 40px;
+    overflow: hidden;
+    padding: 10px;   
 }
 a:link {
         background:transparent;
@@ -310,16 +331,16 @@ nav li {
     display: inline-block;
     margin-top: -28px;
 }
-.walk {
+.Walk {
     background-image: url('../images/walk.gif');
 }
-.bus {
+.Bus {
     background-image: url('../images/bus.gif');
 }
-.train {
+.Train {
     background-image: url('../images/rail.gif');
 }
-.metro {
+.Metro {
     background-image: url('../images/metro.gif');
 }
      
