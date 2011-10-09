@@ -86,7 +86,7 @@ def root():
 def get_routes(from_address, to_address):
     print from_address
     print to_address
-    bing_maps = BingMaps('')
+    bing_maps = BingMaps(os.environ.get("BING_MAPS_API_KEY"))
     result = bing_maps.get_transit_route(from_address, to_address) 
     return simplejson.dumps(result)
 
