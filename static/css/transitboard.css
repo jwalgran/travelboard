@@ -251,13 +251,14 @@ nav li {
 }
 .intervalA {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 6px;
 }
 .intervalA:before {
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
     content: "Leaves:";
+    margin-right: 2px;
 }
 .intervalA:after {
     content: ",";
@@ -266,13 +267,14 @@ nav li {
 }
 .timePoint {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 6px;
 }
 .timePoint:before {
     font-weight: normal;
-    font-size: 16px;
+    font-size: 14px;
     content: "Arrives:";
+    margin-right: 2px;
 }
 .control {
 }
@@ -306,7 +308,7 @@ nav li {
 .stepType .step {
     position: relative;
     display: inline-block;
-    margin-top: -26px;
+    margin-top: -28px;
 }
 .walk {
     background-image: url('../images/walk.gif');
