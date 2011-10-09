@@ -29,10 +29,25 @@ class BingMaps(object):
             'tt': time_type,
             'maxSolutions': max_solution_count
         })
-        print(response)
+        #print(response)
         route_dict = simplejson.loads(response['body'])
         #pprint(route_dict)
-        return self._bing_routes_to_simple_routes(route_dict)
+        
+        simple_routes = self._bing_routes_to_simple_routes(route_dict)
+        self._append_transit_alerts(simple_routes)
+        return simple_routes
+
+    def _append_transit_alerts(self, simple_routes):
+        SERVICE_URL = 'http://www3.septa.org/hackathon/Alerts'
+        for route in simple_routes:
+            #pprint(route)
+            for step in route['steps']:
+                if step['type'] == 'Bus' or step['type'] == 'Train':
+                    line = step['transit_details']['line']
+                    response = Connection(SERVICE_URL).request_get(line)
+                    alerts = simplejson.loads(response['body'])
+                    if len(alerts) > 0:
+                        step['transit_details']['alerts'] = alerts
 
     def _convert_json_date_string(self, json_date_string):
         pattern = re.compile('Date\((\d+)-(\d+)\)')
@@ -80,7 +95,7 @@ class BingMaps(object):
 
 @app.route("/")
 def root():
-    return get_routes('980 N 3RD ST, Philadelphia, PA','Suburban Station, Philadelphia, PA')
+    return get_routes('100 Chestnut St, Philadelphia, PA', '980 N 3RD ST, Philadelphia, PA')
 
 @app.route('/from/<from_address>/to/<to_address>')
 def get_routes(from_address, to_address):
