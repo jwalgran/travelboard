@@ -6,7 +6,7 @@ import re
 import time
 from time import mktime
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 app = Flask(__name__)
 app.debug = os.environ.get("FLASK_DEBUG", False)
 
@@ -119,7 +119,9 @@ def get_routes(from_address, to_address):
     print to_address
     bing_maps = BingMaps(os.environ.get("BING_MAPS_API_KEY"))
     result = bing_maps.get_transit_route(from_address, to_address)
-    return simplejson.dumps(result)
+    resp = make_response(simplejson.dumps(result, indent=4))
+    resp.headers['Content-Type'] = 'application/json'
+    return resp
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
