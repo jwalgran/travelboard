@@ -42,8 +42,8 @@
                             <dt id="header">
                                     <h3 class="listItem placeName">Grocery Store</h3>
                                     <div class="listItem statusTags"></div>
-                                    <div class="listItem intervalA">5min</div>
-                                    <div class="listItem timePoint">10:35pm</div>
+                                    <div class="listItem intervalA">5 mins</div>
+                                    <div class="listItem timePoint">3:35pm</div>
                                     <div class="listItem control"><a onclick=""></a></div>
                                     <div class="stepType"><b class="step walk"></b><b class="step train"></b><b class="step bus"></b><b class="step walk"></b></div>
                             </dt>
@@ -86,8 +86,8 @@
                             <dt id="header">
                                     <h3 class="listItem placeName">Gym</h3>
                                     <div class="listItem statusTags"><b class="advisory"></b></div>
-                                    <div class="listItem intervalA">5min</div>
-                                    <div class="listItem timePoint">10:35pm</div>
+                                    <div class="listItem intervalA">45 mins</div>
+                                    <div class="listItem timePoint">10:17pm</div>
                                     <div class="listItem control"><a onclick=""></a></div>
                                     <div class="stepType"><b class="step walk"></b><b class="step train"></b><b class="step bus"></b><b class="step walk"></b></div>
                             </dt>
@@ -192,30 +192,68 @@
 
 var data = 
 {
-    Sections: 
     [
-        {
-            StatusTag: 1,
-            PlaceName: 'Hooters',
-            ArrivalTime: '5 mins',
-            DestinationTime: '10:35pm',
-            Steps: [
-                { IconType: 'Walk' },{ IconType: 'Train' },{ IconType: 'Bus' },{ IconType: 'Walk' }
-            ]
-        },
-        {
-            Routes:
-            [
-                {
-                    IconType: 'Walk',
-                    Message: '',
-                    Time: '',
-                    Distance: '( 0.35 mi)'
-                    
+    {
+        "distance_in_miles": 0.201324,
+        "steps": [
+            {
+                "distance_in_miles": 0.198839,
+                "instruction": {
+                    "text": "Walk: From 100 Walnut St, Philadelphia, PA 19106 to 3rd St & Walnut St",
+                    "maneuverType": "DepartStart"
+                },
+                "type": "Walk",
+                "duration_in_seconds": 230
+            },
+            {
+                "instruction": {
+                    "text": "Bus: Take 57 - Fern Rock Transportation Ctr",
+                    "maneuverType": "TakeTransit"
+                },
+                "type": "Bus",
+                "duration_in_seconds": 420,
+                "transit_details": {
+                    "name": "South Phila to Fern Rock Trans Cent",
+                    "alerts": [
+                        {
+                            "current_message": "",
+                            "route_name": "57"
+                        }
+                    ],
+                    "depart_stop_id": 3951,
+                    "arrive_time": "2011-10-09T16:27:00",
+                    "arrive_stop_id": 3976,
+                    "depart_from": "3rd St & Walnut St",
+                    "arrive_at": "3rd St & Poplar St",
+                    "line": "57",
+                    "depart_time": "2011-10-09T16:20:00",
+                    "detours": [
+                        {
+                            "route_info": [
+                                {
+                                    "current_message": "",
+                                    "reason": "",
+                                    "route_direction": ""
+                                }
+                            ],
+                            "route_id": ""
+                        }
+                    ]
                 }
-            ]
-	    }
-	]
+            },
+            {
+                "distance_in_miles": 0.002485,
+                "instruction": {
+                    "text": "Walk: From 3rd St & Poplar St to 908 N 3RD St, Philadelphia, PA 19123",
+                    "maneuverType": "ArriveFinish"
+                },
+                "type": "Walk",
+                "duration_in_seconds": 2
+            }
+        ],
+        "duration_in_seconds": 652
+    }
+    ]
 };            
 
 $(function(){
