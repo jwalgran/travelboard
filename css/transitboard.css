@@ -19,14 +19,14 @@ body {
 	-webkit-text-size-adjust: auto;
     color:#533;
     margin:0;
-    padding: 0 5px;
+    padding: 0;
     background-color:white;
 }
 dl, dd {
     margin:0;
 }
 h3 {
-    margin: 8px 1px 1px 1px;
+    margin: 8px 0 8px 0;
     display: block;
 }
 header {
@@ -219,7 +219,7 @@ nav li {
     display: inline-table;
 }
 .statusTags {
-    margin-right: 18px;
+    margin-right: 28px;
     position: relative;
 }
 .steps{
@@ -231,47 +231,32 @@ nav li {
 }
 .advisory{
     position: absolute;
-    top: -10px;
-    left: 20px;
-    height: 0;
-    width: 0;
+    top: -12px;
+    left: 0;
+    height: 24px;
+    width: 27px;
     line-height: 0;
     font-size: 0;
-    border: 8px solid black;
-    border-top: 0;
-    border-top-color: #0ACF00;
-    border-right-color: transparent;
-    border-bottom-color: #FFD200;
-    border-left-color: transparent;
-    border-image: initial;
-    border-bottom-width: 14px;
-    border-top-width: 0;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    background-image: url('../images/advisory.png');
     text-align: center;
     position: absolute;
     margin: 0;
     padding: 0;
     line-height: 0;
-}
-.advisoryText {
-    position: relative;
-    top: 0;
-    Left: 0;
-    width: 10px;
-    height: 18px;   
+    opacity: 0.65;
 }
 .listItem{
-    height: 24px;
+    height: 16px;
+    margin-top: 8px;
 }
 .intervalA {
     font-weight: bold;
+    font-size: 20px;
     margin-bottom: 6px;
 }
 .intervalA:before {
     font-weight: normal;
-    font-size: smaller;
+    font-size: 16px;
     content: "Leaves:";
 }
 .intervalA:after {
@@ -281,11 +266,12 @@ nav li {
 }
 .timePoint {
     font-weight: bold;
+    font-size: 20px;
     margin-bottom: 6px;
 }
 .timePoint:before {
     font-weight: normal;
-    font-size: smaller;
+    font-size: 16px;
     content: "Arrives:";
 }
 .control {
@@ -293,6 +279,8 @@ nav li {
 .stepType {
     display: block;
     height: 26px;
+    position: absolute;
+    right: 0;
 }
 #header.show .stepType {
     display: none;
@@ -309,7 +297,7 @@ nav li {
     position: absolute;
     width: 22px;
     height: 22px;
-    margin-right: 5px;
+    margin-right: 0;
     -moz-border-radius: 6px;
     border-radius: 6px;
     padding-right: 1px;
@@ -318,7 +306,7 @@ nav li {
 .stepType .step {
     position: relative;
     display: inline-block;
-    margin-top: -6px;
+    margin-top: -26px;
 }
 .walk {
     background-image: url('../images/walk.gif');
