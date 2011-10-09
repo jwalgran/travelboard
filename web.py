@@ -83,6 +83,7 @@ class BingMaps(object):
                 for item in leg['itineraryItems']:
                     step = {}
                     step['type'] = item['iconType'] # strange to pull the icon type, but it requires the least parsing
+                    step['instruction'] = item['instruction']
                     if item['travelDistance'] > 0:
                         step['distance_in_miles'] = item['travelDistance']
                     step['duration_in_seconds'] = item['travelDuration']
@@ -115,7 +116,7 @@ def get_routes(from_address, to_address):
     print from_address
     print to_address
     bing_maps = BingMaps(os.environ.get("BING_MAPS_API_KEY"))
-    result = bing_maps.get_transit_route(from_address, to_address) 
+    result = bing_maps.get_transit_route(from_address, to_address)
     return simplejson.dumps(result)
 
 if __name__ == "__main__":
