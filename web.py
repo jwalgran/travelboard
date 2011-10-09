@@ -6,8 +6,9 @@ import re
 import time
 from time import mktime
 import os
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
+app.debug = os.environ.get("FLASK_DEBUG", False)
 
 class BingMaps(object):
     """Wrapper around the Bing Maps REST API"""
@@ -109,7 +110,8 @@ class BingMaps(object):
 
 @app.route("/")
 def root():
-    return get_routes('100 Chestnut St, Philadelphia, PA', '980 N 3RD ST, Philadelphia, PA')
+    return render_template('index.html')
+    # return get_routes('100 Chestnut St, Philadelphia, PA', '980 N 3RD ST, Philadelphia, PA')
 
 @app.route('/from/<from_address>/to/<to_address>')
 def get_routes(from_address, to_address):
