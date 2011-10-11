@@ -1,8 +1,0 @@
-.DS_Store
-bin
-build
-include
-lib
-.Python
-*.pyc
-.cache/
