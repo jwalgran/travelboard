@@ -4,6 +4,7 @@
  */
 
 var express = require('express');
+var transit = require('./transit');
 
 var app = module.exports = express.createServer();
 
@@ -32,6 +33,18 @@ app.get('/', function(req, res){
   res.render('index', {
     title: 'Express'
   });
+});
+
+app.get('/from/:from/to/:to', function(req, res) {
+    res.contentType('application/json');
+    transit.getRoutes(req.params.from, req.params.to, function(err, routes) {
+        if (!err) {
+            res.end(JSON.stringify(routes, undefined, 4));
+        }
+        else {
+            res.end('{"error":' + JSON.stringify(routes) + '}');
+        }
+    });
 });
 
 app.listen(3000);
