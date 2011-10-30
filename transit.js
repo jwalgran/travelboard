@@ -93,7 +93,8 @@ exports.getRoutes = function(startLocation, endLocation, callback) {
         else {
             if (!err) {
                 processedError = processErrorResponse(resp);
-                if (processedError.errorDetails === "The transit stops are too close.") {
+                if (processedError.errorDetails === "The transit stops are too close."
+                || processedError.errorDetails === "Walking is a better option." ) {
                     bing.maps.getWalkingRoute(startLocation, endLocation, function(err, resp) {
                         if (!err && !resp.error) {
                             callback(undefined, bingResponseToRouteArray(resp));
