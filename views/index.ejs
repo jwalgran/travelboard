@@ -1,0 +1,141 @@
+<header>
+    <h1 class="home header accessAid">basic header info</h1>
+    <nav>
+        <ul>
+            <li id="home">TRAVEL BOARD</li>
+            <li id="settings" class="accessAid"><a href="#">Settings</a></li>
+            <li id="about"><a href="afs.html">About</a></li>
+        </ul>
+    </nav>
+</header>
+<section>
+    <div id="origin">
+        <h3 class="originName">Home</h3>
+        <div class="newLocation"></div>
+        <div><a href="#"  class="currentLocation"></a></div>
+    </div>
+</section>
+<section>
+    <div id="destinationList">
+        <ul>
+            <li class="location">
+                <dl class="origin">
+                    <dt class="accessAid">
+                        <div>Destination</div>
+                        <div>Status</div>
+                        <div>Must Leave By</div>
+                        <div>Should Arrive By</divW
+                        <div>Control</div>
+                        <div>Steps</div>
+                    </dt>
+                    <dt id="header">
+                            <h3 class="listItem placeName">Grocery Store</h3>
+                            <div class="listItem statusTags"></div>
+                            <div class="listItem intervalA">5 mins</div>
+                            <div class="listItem timePoint">3:35pm</div>
+                            <div class="listItem control"><a onclick=""></a></div>
+                            <div class="stepType"><b class="step Walk"></b><b class="step Train"></b><b class="step Bus"></b><b class="step walk"></b></div>
+                    </dt>
+                    <dd>
+                        <table class="steps">
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        </table>
+                    </dd>
+                </dl>
+            </li>
+            <li class="location">
+                <dl class="origin">
+                    <dt class="accessAid">
+                        <div>Status</div>
+                        <div>Destination</div>
+                        <div>Must Leave By</div>
+                        <div>Should Arrive By</div>
+                        <div>Control</div>
+                        <div>Steps</div>
+                    </dt>
+                    <dt id="header">
+                            <h3 class="listItem placeName">Gym</h3>
+                            <div class="listItem statusTags"><b class="advisory"></b></div>
+                            <div class="listItem intervalA">45 mins</div>
+                            <div class="listItem timePoint">10:17pm</div>
+                            <div class="listItem control"><a onclick=""></a></div>
+                            <div class="stepType"><b class="step Walk"></b><b class="step Train"></b><b class="step Bus"></b><b class="step Walk"></b></div>
+                    </dt>
+                    <dd class="steps">
+                        <table>
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        </table>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+    </div>                
+</section>
+    
+<script>
+(function(){
+    var root = $('#destinationList');
+    var clickableTable = root.find('.location .origin #header');
+    var mockData = [];
+    var template = [];
+    var toggleOld;
+
+
+    function showHideTable(t) {
+        //console.log(toggleOld + " : " + t);
+        if(toggleOld != t){
+            $(toggleOld).parent().find('.steps').toggleClass('show');
+            $(toggleOld).toggleClass('show');
+            toggleOld = t;
+        }else{
+            toggleOld = null;
+        }
+        $(t).parent().find('.steps').toggleClass('show');
+        $(t).toggleClass('show');
+    }
+    
+    
+    $(clickableTable).click(function(evt) {
+        showHideTable(this);        
+    });
+
+})();
+</script>
