@@ -38,7 +38,7 @@ app.get('/', function(req, res){
 
 app.get('/from/:from/to/:to', function(req, res) {
     res.contentType('application/json');
-    transit.getRoutes(req.params.from, req.params.to, function(err, routes) {
+    transit.getRoutes(req.params.from.replace(/_/g, ' '), req.params.to.replace(/_/g, ' '), function(err, routes) {
         if (!err && !routes.error) {
             res.end(JSON.stringify(routes, undefined, 4));
         }
