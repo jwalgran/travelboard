@@ -73,15 +73,48 @@ var bing = require('bing'),
             routeArray.push(route);
         }
         return routeArray;
+    },
+
+    processErrorResponse = function(resp) {
+        if (resp.error) {
+            return {statusCode: resp.error.statusCode, errorDetails: resp.error.body.errorDetails[0]};
+        }
+        else {
+            return resp;
+        }
     };
     
 exports.getRoutes = function(startLocation, endLocation, callback) {
     bing.maps.getTransitRoute(startLocation, endLocation, function(err, resp) {
-        if (!err) {
+        var processedError;
+        if (!err && !resp.error) {
             callback(undefined, bingResponseToRouteArray(resp));
         }
         else {
-            callback(err, {"error": console.dir(resp)});
+            if (!err) {
+                processedError = processErrorResponse(resp);
+                if (processedError.errorDetails === "The transit stops are too close.") {
+                    bing.maps.getWalkingRoute(startLocation, endLocation, function(err, resp) {
+                        if (!err && !resp.error) {
+                            callback(undefined, bingResponseToRouteArray(resp));
+                        }
+                        else {
+                            if (!err) {
+                                callback(err, processErrorResponse(resp));
+                            }
+                            else {
+                                callback(err, resp);
+                            }
+                        }
+                    });
+                }
+                else {
+                    callback(err, processedError);
+                }
+            }
+            else {
+                callback(err, resp);
+            }
         }
     });
 };

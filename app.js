@@ -38,11 +38,11 @@ app.get('/', function(req, res){
 app.get('/from/:from/to/:to', function(req, res) {
     res.contentType('application/json');
     transit.getRoutes(req.params.from, req.params.to, function(err, routes) {
-        if (!err) {
+        if (!err && !routes.error) {
             res.end(JSON.stringify(routes, undefined, 4));
         }
         else {
-            res.end('{"error":' + JSON.stringify(routes) + '}');
+            res.end(JSON.stringify(routes));
         }
     });
 });
