@@ -1,4 +1,5 @@
 var bing = require('bing'),
+    septa = require('septa'),
 
     // The Bing REST API returns times in strings like this /Date(1318813320000-0700)/
     // so a special convertion is needed to correctly apply the timezone offset.
@@ -82,13 +83,66 @@ var bing = require('bing'),
         else {
             return resp;
         }
+    },
+
+    appendSeptaDetoursToRoutes = function(routeArray, callback) {
+        var getSeptaDetoursForRoute = function(routeIndex) {
+            var steps = routeArray[routeIndex].steps;
+            if (steps.length > 0) {
+                getSeptaDetoursForStep(routeIndex, 0);
+            } else if (routeIndex < routeArray.length - 1) {
+                getSeptaDetoursForRoute(routeIndex + 1);
+            } else {
+                callback(undefined, routeArray);
+            }
+        };
+
+        var getSeptaDetoursForStep = function(routeIndex, stepIndex) {
+            var steps = routeArray[routeIndex].steps;
+            if (steps[stepIndex].type === 'Bus') {
+               routeNumber = steps[stepIndex].transitDetails.line;
+               busRoute = new septa.BusRoute(routeNumber);
+               busRoute.fetchDetours(function(err, resp) {
+                   if (!err) {
+                       // If there are no detours on a route the SEPTA API still returns an
+                       // [{"route_direction":"","reason":"","current_message":""}] so it is
+                       // safe to check resp[0]
+                       if (resp[0].current_message !== "") {
+                           steps[stepIndex].transitDetails.detours = resp;
+                       }
+                       if (stepIndex < steps.length - 1) {
+                           getSeptaDetoursForStep(routeIndex, stepIndex + 1);
+                       } else if (routeIndex < routeArray.length - 1) {
+                           getSeptaDetoursForRoute(routeIndex + 1);
+                       } else {
+                           callback(undefined, routeArray);
+                       }
+                   } else {
+                       callback(err, routeArray);
+                   }
+               });
+            } else {
+                if (stepIndex < steps.length - 1) {
+                    getSeptaDetoursForStep(routeIndex, stepIndex + 1);
+                } else if (routeIndex < routeArray.length - 1) {
+                    getSeptaDetoursForRoute(routeIndex + 1);
+                } else {
+                    callback(undefined, routeArray);
+                }
+            }
+        };
+
+        if (routeArray.length > 0) {
+            getSeptaDetoursForRoute(0);
+        }
     };
     
 exports.getRoutes = function(startLocation, endLocation, callback) {
     bing.maps.getTransitRoute(startLocation, endLocation, function(err, resp) {
-        var processedError;
+        var processedError, routeArray;
         if (!err && !resp.error) {
-            callback(undefined, bingResponseToRouteArray(resp));
+            routeArray = bingResponseToRouteArray(resp);
+            appendSeptaDetoursToRoutes(routeArray, callback);
         }
         else {
             if (!err) {
