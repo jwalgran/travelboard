@@ -278,7 +278,7 @@ nav li {
 .intervalA:before {
     font-weight: normal;
     font-size: 14px;
-    content: "Leaves:";
+    content: "Leave:";
     margin-right: 2px;
 }
 .intervalA:after {
@@ -294,7 +294,7 @@ nav li {
 .timePoint:before {
     font-weight: normal;
     font-size: 14px;
-    content: "Arrives:";
+    content: "Arrive:";
     margin-right: 2px;
 }
 .control {
