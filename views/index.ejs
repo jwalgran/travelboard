@@ -283,7 +283,7 @@
                     if (step.type === 'Walk') {
                         arrive = arrive.add(step.durationInSeconds).seconds();
                     } else {
-                        arrive = Date.parse(step.transitDetails.arrive_time);
+                        arrive = Date.parse(step.transitDetails.arrive_time).add(-5).hours();
                     }
                 });
 
@@ -291,7 +291,7 @@
                     $('#toMuseumDepart').text('Now');
                     var arrive = (new Date()).add(route.durationInSeconds).seconds();
                 } else {
-                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
+                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-5).hours().add(-1 * secondsToFirstTransitStep).seconds()
                     $('#toMuseumDepart').text(formatTime(depart));
                 }
 
@@ -333,7 +333,7 @@
                     if (step.type === 'Walk') {
                         arrive = arrive.add(step.durationInSeconds).seconds();
                     } else {
-                        arrive = Date.parse(step.transitDetails.arrive_time);
+                        arrive = Date.parse(step.transitDetails.arrive_time).add(-5).hours();
                     }
                 });
 
@@ -341,7 +341,7 @@
                     $('#toHomeDepart').text('Now');
                     var arrive = (new Date()).add(route.durationInSeconds).seconds();
                 } else {
-                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
+                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-5).hours().add(-1 * secondsToFirstTransitStep).seconds()
                     $('#toHomeDepart').text(formatTime(depart));
                 }
 
