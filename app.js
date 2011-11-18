@@ -4,6 +4,7 @@
  */
 
 var express = require('express');
+// var jade = require('jade');
 var ejs = require('ejs');
 var transit = require('./transit');
 
@@ -41,6 +42,7 @@ app.get('/from/:from/to/:to', function(req, res) {
     transit.getRoutes(req.params.from.replace(/_/g, ' '), req.params.to.replace(/_/g, ' '), function(err, routes) {
         if (!err && !routes.error) {
             res.end(JSON.stringify(routes, undefined, 4));
+            // console.log(JSON.stringify(routes, undefined, 4));
         }
         else {
             res.end(JSON.stringify(routes));
