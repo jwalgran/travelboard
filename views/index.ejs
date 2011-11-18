@@ -210,137 +210,148 @@
         showHideTable(this);        
     });
 
-    $.ajax('/from/1234_market_st_philadelphia/to/340_n_12th_st_philadelphia', {
-        dataType: 'json',
-        success: function(data) {
-            var route = data[0];
-            var now = new Date();
-            var arrive = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), route.durationInSeconds)
-            var lastStepType;
-            if (route.steps[0].type === 'Walk') {
-                $('#toAzaveaDepart').text('Now');
-            }
-            $('#toAzaveaArrive').text(formatTime(arrive));
-            $('#toAzaveaSteps').html('');
-            var $steps = $('#azaveaSteps');
-            $steps.html('');
-            $.each(route.steps, function(index, step) {
-                var $row = $('<tr>').appendTo($steps);
-                var $col = $('<td>').appendTo($row);
-                var $p = $('<p>').appendTo($col).text(step.instruction.text);
-                $('<b>', {'class': 'step ' + step.type}).prependTo($p);
-                
-                                      // 
-                                      // <tr>
-                                      //       <td>
-                                      //           <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
-                                      //       </td>
-                                      //   </tr>
-                
-                
-                if (lastStepType !== 'Walk' || step.type !== 'Walk') {
-                    $('#toAzaveaSteps').append($('<b>', { 'class': 'step ' + step.type }));
+    var updateDestinations = function() {
+        $.ajax('/from/1234_market_st_philadelphia/to/340_n_12th_st_philadelphia', {
+            dataType: 'json',
+            success: function(data) {
+                $('#toAzaveaSteps').html('');
+                $('#azaveaSteps').html('');
+                var route = data[0];
+                var now = new Date();
+                var arrive = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), route.durationInSeconds)
+                var lastStepType;
+                if (route.steps[0].type === 'Walk') {
+                    $('#toAzaveaDepart').text('Now');
                 }
-                lastStepType = step.type;
-            });
-        }
-    });
-    
-    $.ajax('/from/1234_market_st_philadelphia/to/3400%20W%20Girard%20Ave%20Philadelphia', {
-        dataType: 'json',
-        success: function(data) {
-            var route = data[0];
-            var lastStepType;
-            var secondsToFirstTransitStep = 0;
-            var firstTransitStep;
-            var arrive = new Date();
-
-            var $steps = $('#zooSteps');
-            $steps.html('');
-            
-            $.each(route.steps, function(index, step) {
-                 var $row = $('<tr>').appendTo($steps);
+                $('#toAzaveaArrive').text(formatTime(arrive));
+                $('#toAzaveaSteps').html('');
+                var $steps = $('#azaveaSteps');
+                $steps.html('');
+                $.each(route.steps, function(index, step) {
+                    var $row = $('<tr>').appendTo($steps);
                     var $col = $('<td>').appendTo($row);
                     var $p = $('<p>').appendTo($col).text(step.instruction.text);
                     $('<b>', {'class': 'step ' + step.type}).prependTo($p);
-                    
-                if (firstTransitStep === undefined) {
-                    if (step.type === 'Walk') {
-                        secondsToFirstTransitStep += step.durationInSeconds;
-                    } else {
-                        firstTransitStep = step;
-                    }
-                }
-                if (lastStepType !== 'Walk' || step.type !== 'Walk') {
-                    $('#toMuseumSteps').append($('<b>', { 'class': 'step ' + step.type }));
-                }
-                lastStepType = step.type;
-                if (step.type === 'Walk') {
-                    arrive = arrive.add(step.durationInSeconds).seconds();
-                } else {
-                    arrive = Date.parse(step.transitDetails.arrive_time);
-                }
-            });
-            
-            if(firstTransitStep === undefined) {
-                $('#toMuseumDepart').text('Now');
-                var arrive = (new Date()).add(route.durationInSeconds).seconds();
-            } else {
-                var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
-                $('#toMuseumDepart').text(formatTime(depart));
-            }
-            
-            $('#toMuseumArrive').text(formatTime(arrive));
-        }
-    });
-    
-    $.ajax('/from/1234_market_st_philadelphia/to/126_merion_Ave_west_conshohocken', {
-        dataType: 'json',
-        success: function(data) {
-            var route = data[0];
-            var lastStepType;
-            var secondsToFirstTransitStep = 0;
-            var firstTransitStep;
-            var arrive = new Date();
 
-            var $steps = $('#homeSteps');
-            $steps.html('');
-            
-            $.each(route.steps, function(index, step) {
-                 var $row = $('<tr>').appendTo($steps);
-                    var $col = $('<td>').appendTo($row);
-                    var $p = $('<p>').appendTo($col).text(step.instruction.text);
-                    $('<b>', {'class': 'step ' + step.type}).prependTo($p);
-                    
-                if (firstTransitStep === undefined) {
-                    if (step.type === 'Walk') {
-                        secondsToFirstTransitStep += step.durationInSeconds;
-                    } else {
-                        firstTransitStep = step;
+                                          // 
+                                          // <tr>
+                                          //       <td>
+                                          //           <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                                          //       </td>
+                                          //   </tr>
+
+
+                    if (lastStepType !== 'Walk' || step.type !== 'Walk') {
+                        $('#toAzaveaSteps').append($('<b>', { 'class': 'step ' + step.type }));
                     }
-                }
-                if (lastStepType !== 'Walk' || step.type !== 'Walk') {
-                    $('#toHomeSteps').append($('<b>', { 'class': 'step ' + step.type }));
-                }
-                lastStepType = step.type;
-                if (step.type === 'Walk') {
-                    arrive = arrive.add(step.durationInSeconds).seconds();
-                } else {
-                    arrive = Date.parse(step.transitDetails.arrive_time);
-                }
-            });
-            
-            if(firstTransitStep === undefined) {
-                $('#toHomeDepart').text('Now');
-                var arrive = (new Date()).add(route.durationInSeconds).seconds();
-            } else {
-                var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
-                $('#toHomeDepart').text(formatTime(depart));
+                    lastStepType = step.type;
+                });
             }
-            
-            $('#toHomeArrive').text(formatTime(arrive));
-        }
-    });
-    
+        });
+
+        $.ajax('/from/1234_market_st_philadelphia/to/3400%20W%20Girard%20Ave%20Philadelphia', {
+            dataType: 'json',
+            success: function(data) {
+                $('#toMuseumSteps').html('');
+                $('#zooSteps').html('');
+                var route = data[0];
+                var lastStepType;
+                var secondsToFirstTransitStep = 0;
+                var firstTransitStep;
+                var arrive = new Date();
+
+                var $steps = $('#zooSteps');
+                $steps.html('');
+
+                $.each(route.steps, function(index, step) {
+                     var $row = $('<tr>').appendTo($steps);
+                        var $col = $('<td>').appendTo($row);
+                        var $p = $('<p>').appendTo($col).text(step.instruction.text);
+                        $('<b>', {'class': 'step ' + step.type}).prependTo($p);
+
+                    if (firstTransitStep === undefined) {
+                        if (step.type === 'Walk') {
+                            secondsToFirstTransitStep += step.durationInSeconds;
+                        } else {
+                            firstTransitStep = step;
+                        }
+                    }
+                    if (lastStepType !== 'Walk' || step.type !== 'Walk') {
+                        $('#toMuseumSteps').append($('<b>', { 'class': 'step ' + step.type }));
+                    }
+                    lastStepType = step.type;
+                    if (step.type === 'Walk') {
+                        arrive = arrive.add(step.durationInSeconds).seconds();
+                    } else {
+                        arrive = Date.parse(step.transitDetails.arrive_time);
+                    }
+                });
+
+                if(firstTransitStep === undefined) {
+                    $('#toMuseumDepart').text('Now');
+                    var arrive = (new Date()).add(route.durationInSeconds).seconds();
+                } else {
+                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
+                    $('#toMuseumDepart').text(formatTime(depart));
+                }
+
+                $('#toMuseumArrive').text(formatTime(arrive));
+            }
+        });
+
+        $.ajax('/from/1234_market_st_philadelphia/to/126_merion_Ave_west_conshohocken', {
+            dataType: 'json',
+            success: function(data) {
+                $('#toHomeSteps').html('');
+                $('#homeSteps').html('');
+                var route = data[0];
+                var lastStepType;
+                var secondsToFirstTransitStep = 0;
+                var firstTransitStep;
+                var arrive = new Date();
+
+                var $steps = $('#homeSteps');
+                $steps.html('');
+
+                $.each(route.steps, function(index, step) {
+                     var $row = $('<tr>').appendTo($steps);
+                        var $col = $('<td>').appendTo($row);
+                        var $p = $('<p>').appendTo($col).text(step.instruction.text);
+                        $('<b>', {'class': 'step ' + step.type}).prependTo($p);
+
+                    if (firstTransitStep === undefined) {
+                        if (step.type === 'Walk') {
+                            secondsToFirstTransitStep += step.durationInSeconds;
+                        } else {
+                            firstTransitStep = step;
+                        }
+                    }
+                    if (lastStepType !== 'Walk' || step.type !== 'Walk') {
+                        $('#toHomeSteps').append($('<b>', { 'class': 'step ' + step.type }));
+                    }
+                    lastStepType = step.type;
+                    if (step.type === 'Walk') {
+                        arrive = arrive.add(step.durationInSeconds).seconds();
+                    } else {
+                        arrive = Date.parse(step.transitDetails.arrive_time);
+                    }
+                });
+
+                if(firstTransitStep === undefined) {
+                    $('#toHomeDepart').text('Now');
+                    var arrive = (new Date()).add(route.durationInSeconds).seconds();
+                } else {
+                    var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
+                    $('#toHomeDepart').text(formatTime(depart));
+                }
+
+                $('#toHomeArrive').text(formatTime(arrive));
+            }
+        });
+    };
+        
+    updateDestinations();
+    setInterval(function() {updateDestinations()}, 10000);
+
 })();
 </script>
