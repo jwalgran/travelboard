@@ -106,6 +106,50 @@
                     </dd>
                 </dl>
             </li>
+            <li class="location">
+                <dl class="origin">
+                    <dt class="accessAid">
+                        <div>Status</div>
+                        <div>Destination</div>
+                        <div>Must Leave By</div>
+                        <div>Should Arrive By</div>
+                        <div>Control</div>
+                        <div>Steps</div>
+                    </dt>
+                    <dt id="header">
+                            <h3 class="listItem placeName">Home</h3>
+                            <div class="listItem statusTags"><!-- <b class="advisory"></b> --></div>
+                            <div id="toHomeDepart" class="listItem intervalA">...</div>
+                            <div id="toHomeArrive" class="listItem timePoint">...</div>
+                            <div class="listItem control"><a onclick=""></a></div>
+                            <div id="toHomeSteps" class="stepType"><b class="step Walk"></b><b class="step Train"></b><b class="step Bus"></b><b class="step Walk"></b></div>
+                    </dt>
+                    <dd>
+                        <table id="homeSteps" class="steps">
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Train"></b>??Train line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins ??number$$ stops)</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Bus"></b>??Bus line & Number$$</p><p>4:43pm - 5:57pm <span class="parenthetical">(??time$$ mins</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p><b class="step Walk"></b> Walk to ??stop location$$</p><p><span class="parenthetical">About ??walktime$$ mins (??walk distance$$ mi)</span></p>
+                            </td>
+                        </tr>
+                        </table>
+                    </dd>
+                </dl>
+            </li>
         </ul>
     </div>                
 </section>
@@ -200,8 +244,6 @@
         }
     });
     
-    //  /from/1234_market_st_philadelphia/to/126_merion_Ave_west_conshohocken
-    //  /from/1234_market_st_philadelphia/to/2525%20Pennsylvania%20Ave%20Philadelphia
     $.ajax('/from/1234_market_st_philadelphia/to/3400%20W%20Girard%20Ave%20Philadelphia', {
         dataType: 'json',
         success: function(data) {
@@ -247,6 +289,54 @@
             }
             
             $('#toMuseumArrive').text(formatTime(arrive));
+        }
+    });
+    
+    $.ajax('/from/1234_market_st_philadelphia/to/126_merion_Ave_west_conshohocken', {
+        dataType: 'json',
+        success: function(data) {
+            var route = data[0];
+            var lastStepType;
+            var secondsToFirstTransitStep = 0;
+            var firstTransitStep;
+            var arrive = new Date();
+
+            var $steps = $('#homeSteps');
+            $steps.html('');
+            
+            $.each(route.steps, function(index, step) {
+                 var $row = $('<tr>').appendTo($steps);
+                    var $col = $('<td>').appendTo($row);
+                    var $p = $('<p>').appendTo($col).text(step.instruction.text);
+                    $('<b>', {'class': 'step ' + step.type}).prependTo($p);
+                    
+                if (firstTransitStep === undefined) {
+                    if (step.type === 'Walk') {
+                        secondsToFirstTransitStep += step.durationInSeconds;
+                    } else {
+                        firstTransitStep = step;
+                    }
+                }
+                if (lastStepType !== 'Walk' || step.type !== 'Walk') {
+                    $('#toHomeSteps').append($('<b>', { 'class': 'step ' + step.type }));
+                }
+                lastStepType = step.type;
+                if (step.type === 'Walk') {
+                    arrive = arrive.add(step.durationInSeconds).seconds();
+                } else {
+                    arrive = Date.parse(step.transitDetails.arrive_time);
+                }
+            });
+            
+            if(firstTransitStep === undefined) {
+                $('#toHomeDepart').text('Now');
+                var arrive = (new Date()).add(route.durationInSeconds).seconds();
+            } else {
+                var depart = Date.parse(firstTransitStep.transitDetails.depart_time).add(-1 * secondsToFirstTransitStep).seconds()
+                $('#toHomeDepart').text(formatTime(depart));
+            }
+            
+            $('#toHomeArrive').text(formatTime(arrive));
         }
     });
     
