@@ -1,4 +1,4 @@
-
+ 
 /**
  * Module dependencies.
  */
@@ -45,7 +45,8 @@ app.get('/from/:from/to/:to', function(req, res) {
             // console.log(JSON.stringify(routes, undefined, 4));
         }
         else {
-            res.end(JSON.stringify(routes));
+            //res.end(JSON.stringify(routes));
+           console.log(routes);
         }
     });
 });
